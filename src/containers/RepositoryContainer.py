@@ -2,6 +2,8 @@ from dependency_injector import containers, providers
 from sqlmodel import create_engine, Session
 from infrastructure.SQLModelRepository import SQLModelRepository
 
+
+#TODO: handle this container for dependency injection of the repositories.
 class RepositoryContainer(containers.DeclarativeContainer):
     
     # Configurazione del database, da gestire tramite variabili d'ambiente o file di configurazione

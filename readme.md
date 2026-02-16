@@ -30,5 +30,8 @@ Next steps you can take:
 - Introduce a more robust backend framework using FastAPI or Flask.
 - Adopt a more sophisticated frontend using React or Vue.
 
+## Status Note
+This template is still under development, but is good enough to be used as a starting point for your own projects.
+
 ## License
 This project is licensed under the MIT License.
