@@ -1,7 +1,9 @@
 from typing import Generic, TypeVar, List, Optional, Type
 from sqlmodel import SQLModel, Session, select
 from sqlalchemy.exc import OperationalError, SQLAlchemyError
+from src.containers.RepositoryContainer import RepositoryContainer
 from src.infrastructure.Interfaces.IRepository import IRepository
+from dependency_injector.wiring import Provide, inject
 from src.infrastructure.Exceptions.RepositoryExceptions import (
     DatabaseConnectionError,
     QueryExecutionError,
@@ -13,7 +15,8 @@ T = TypeVar("T", bound=SQLModel)
 class SQLModelRepository(IRepository[T, int], Generic[T]):
     
     # Here we should put a dependency injector.
-    def __init__(self, model: Type[T], session: Session):
+    @inject
+    def __init__(self, model: Type[T], session: Session = Provide[RepositoryContainer.sqllite_session] ):
         self.model = model
         self.session = session
 

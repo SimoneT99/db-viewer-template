@@ -4,7 +4,7 @@ import streamlit as st
 
 from src.services.CRUDService import CRUDService
 from src.view.Interfaces.IStreamLitPage import IStreamLitPage
-from src.view.Interfaces.IStreamLitFormStrategy import IStreamLitFormStrategy
+from src.view.Interfaces.IStreamLitFormStrategy import IStreamLitForm
 
 T = TypeVar("T", bound=SQLModel)
 
@@ -12,7 +12,7 @@ class BaseCRUDPage(IStreamLitPage):
 
     def __init__(self, 
                  CRUDService: CRUDService[Any], type : Type[Any],
-                 form_strategy: IStreamLitFormStrategy[Any]):
+                 form_strategy: IStreamLitForm[Any]):
         if CRUDService is None:
             raise ValueError("CRUDService cannot be None")
         self._CrudService = CRUDService
@@ -29,12 +29,13 @@ class BaseCRUDPage(IStreamLitPage):
         st.title(self._get_title())
 
         # Creation
-        st.subheader(self._get_create_subtitle())
-        self._form_strategy.render_form(None, *args, **kwargs)
-        if st.button("Submit"):
-            model = self._form_strategy.get_model(*args, **kwargs)
+        self._form_strategy.render_form(model=None, form_key="create", *args, **kwargs)
+
+        model = self._form_strategy.get_model(form_key="create")
+        if model:
             self._CrudService.create_item(model)
-            st.success("Data created successfully!")
+            st.success(f"{self._type.__name__} created successfully!")
+            self._form_strategy.clear_form(form_key="create")
 
         # View
         st.subheader(self._get_view_subtitle())
