@@ -11,39 +11,47 @@ class ReadmePage(IStreamLitPage):
     def render(self, *args, **kwargs) -> None:
         st.title("README")
         st.markdown("""
-        # Streamlit SQLModel App
+            # Streamlit SQLModel Template
 
-        This is a simple template that can be developed into a full-featured CRUD application.
+            This is a simple template that serves a a starting point for the development of a CRUD application.
 
-        **Author**: Simone Tomada - [SimoneT99 on GitHub](https://github.com/SimoneT99)
+            **Author**: Simone Tomada - [SimoneT99 on GitHub](https://github.com/SimoneT99)
 
-        ## Stack Overview
-        - **Streamlit**: A temporary presentation layer that allows for fast iteration and prototyping. Eventually, this can be replaced with a more robust frontend framework like React or Vue.
-        - **SQLModel**: A library for interacting with SQL databases using Python models. It handles model validation and provides an easy interface for database operations.
+            ## Stack Overview
+            - **Streamlit**: A temporary presentation layer that allows for fast iteration and prototyping. Eventually, this can be replaced with a more robust frontend framework like React or Vue.
+            - **SQLModel**: A library for interacting with SQL databases using Python models. It handles model validation and provides an easy interface for database operations.
 
-        ## Getting Started
-        1. Install the required dependencies:
-           ```bash
-           pip install -r requirements.txt
-           ```
-        2. Run the application:
-           ```bash
-           streamlit run src/app.py
-           ```
-        3. Use the sidebar to navigate between the Home page and the ExampleModel CRUD page.
+            ## Project Structure
+            The project follows a modular architecture, organized as follows:
+            - **Model**: Uses SQLModel to define your data structures.
+            - **Services**: Depend on models and implement business logic and use cases.
+            - **Views**: Depend on services (and models; eventually, you may want to separate database models from DTOs). Uses Streamlit as the framework for the presentation layer.
+            - **Infrastructure**: Provides external dependencies for services (such as database connections). Includes a repository abstraction for managing CRUD operations, with a basic SQLAlchemy implementation. You can implement your own repository for custom behavior.
 
-        ## Container Notes
-        - The application is designed to be containerized using Docker, but the configuration is still under development.
 
-        ## Future Evolutions
-        This project is designed to be easily extendable. You can add new models, pages, etc.
-        The architecture is designed to keep the presentation separate from the service logic, allowing for easy swapping of the frontend or backend components.
+            **NOTE**: This structure is flexible and should be adapted to your specific needs. Keeping the view and service layers separate is recommended, as it allows for easier upgrades to a more complex UI or a multi-tier application in the future.
 
-        Next steps you can take:
-        - Introduce a more robust backend framework using FastAPI or Flask.
-        - Adopt a more sophisticated frontend using React or Vue.
+            ## Getting Started
+            1. Run the container
+            2. Install the required dependencies:
+                ```bash
+                pip install -r requirements.txt
+                ```
+            3. Run the application:
+                ```bash
+                streamlit run main.py
+                ```
+            4. Use the sidebar to navigate between the Home page and the ExampleModel CRUD page.
 
-        ## License
-        This project is licensed under the MIT License.
-        """
+            ## Container Notes
+            - The application is designed to be containerized using Docker.
+
+            ## Status and Production Note
+            This template is currently under active development and is **not** intended for direct production use in its current form.  
+            It serves as a starting point to be customized and extended according to the specific needs of your project.
+
+            Pull request are welcome for improvements and bugfixing.
+
+            ## License
+            This project is licensed under the MIT License."""
         )
